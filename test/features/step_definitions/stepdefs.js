@@ -8,8 +8,8 @@ const capabilities = Capabilities.chrome();
 capabilities.set('chromeOptions', { "w3c": false });
 const driver = new Builder().withCapabilities(capabilities).build();
 
-Given('I am on the Google search page', async function () {
-    await driver.get('https://www.google.com');
+Given('I am on the Google search page',{timeout: 2 * 5000}, async function () {
+    await driver.get('http://www.google.com');
 });
 
 When('I search for {string}', async function (searchTerm) {
@@ -18,12 +18,12 @@ When('I search for {string}', async function (searchTerm) {
     element.submit();
 });
 
-Then('the page title should start with {string}', {timeout: 60 * 1000}, async function (searchTerm) {
+Then('the page title should start with {string}', {timeout: 60 * 10000}, async function (searchTerm) {
     const title = await driver.getTitle();
     const isTitleStartWithCheese = title.toLowerCase().lastIndexOf(`${searchTerm}`, 0) === 0;
     expect(isTitleStartWithCheese).to.equal(true);
 });
 
 AfterAll('end', async function(){
-    // await driver.quit();
+    await driver.quit();
 });
