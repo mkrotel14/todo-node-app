@@ -7,7 +7,12 @@
 var app = require('../app');
 var debug = require('debug')('todo-node-app:server');
 var http = require('http');
+var dotenv = require("dotenv");
 
+dotenv.config();
+var {connect} =  require('./db')
+
+connect()
 /**
  * Get port from environment and store in Express.
  */
