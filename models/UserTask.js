@@ -31,7 +31,15 @@ const UserSchema = new Schema({
         type: String,
         required: true,
     },
-    createdAt: Date,
+    todo: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Todo'
+    }],
+    createdAt: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
     updatedAt: Date
 })
 
@@ -44,5 +52,9 @@ UserSchema.pre('save', async function save(next) {
         throw e
     }
 })
+
+UserSchema.methods.validatePassword = async function validatePassword(password){
+    return await bcrypt.compare(password, this.password)
+}
 
 module.exports = mongoose.model('User', UserSchema)

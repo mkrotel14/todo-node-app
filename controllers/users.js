@@ -11,9 +11,7 @@ UserController.createUser = async ({firstName, lastName, username, email, passwo
             password
         })
 
-        const newUser = await User.save();
-        console.log(newUser)
-        return newUser
+        return await User.save();
     } catch (e) {
         throw e
     }

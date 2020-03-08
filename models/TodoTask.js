@@ -1,11 +1,25 @@
 const mongoose = require('mongoose')
+const {Schema} = mongoose
 
-const TodoTask = new mongoose.Schema({
+const TodoSchema = new Schema({
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',        
+    },
     content: {
-        trype: String,
+        type: String,
         required: true
-    },    
-    createdAt: Date,
+    },
+    finished: {
+        type: Boolean,
+        required: true,
+        default: 0
+    },
+    createdAt: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
     updatedAt: Date
 })
 

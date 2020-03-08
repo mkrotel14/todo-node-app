@@ -1,19 +1,11 @@
 const express = require("express");
 const Router = express.Router();
-const UserController = require('../controllers/users')
+const TodoControler = require('../controllers/todo')
 
-
-// Router.post("/get", async (req, res) => {
-//   try {
-//     res.send(await UserController.getUser())
-//   } catch (e) {
-//     throw e
-//   }
-// })
 
 Router.post("/new", async (req, res) => {
   try {
-    res.json(await UserController.createUser(req.body))
+    res.json(await TodoControler.createTodo(req.body))
   } catch (e) {
     res.status(500).json(e.message)
   }
