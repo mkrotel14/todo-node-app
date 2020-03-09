@@ -1,10 +1,18 @@
 const express = require("express");
 const Router = express.Router();
-const UserController = require('../controllers/users')
+const TodoController = require('../controllers/todo')
+
+Router.get("/", async (req, res) => {
+  try {
+    res.json(await TodoController.getTodoByUserId(req.query))
+  } catch (e) {
+    throw e
+  }
+})
 
 Router.post("/new", async (req, res) => {
   try {
-    res.json(await UserController.createUser(req.body))
+    res.json(await TodoController.createTodo(req.body))
   } catch (e) {
     res.status(500).json(e.message)
   }
@@ -12,7 +20,7 @@ Router.post("/new", async (req, res) => {
 
 Router.put("/edit", async (req, res) => {
   try {
-    res.send(await UserController.updateUser(req.body))
+    res.send(await TodoController.updateTodo(req.body))
   } catch (e) {
     res.status(500).json(e.message)
   }
@@ -20,7 +28,7 @@ Router.put("/edit", async (req, res) => {
 
 Router.delete("/delete", async (req,res) => {
   try {
-    res.send(await UserController.deleteUser(req.body))
+    res.send(await TodoController.deleteTodo(req.body))
   } catch (e) {
     res.status(500).json(e.message)
   }
