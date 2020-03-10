@@ -10,6 +10,7 @@
     "@hapi/joi": "^17.1.0",
     "bcrypt": "^4.0.1",
     "cookie-parser": "~1.4.4",
+    "dayjs": "^1.8.22",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
     "express": "~4.16.1",

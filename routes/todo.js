@@ -26,12 +26,20 @@ Router.put("/edit", async (req, res) => {
   }
 })
 
-Router.delete("/delete", async (req,res) => {
+Router.delete("/delete", async (req, res) => {
   try {
     res.send(await TodoController.deleteTodo(req.body))
   } catch (e) {
     res.status(500).json(e.message)
   }
 })
+
+Router.put("/update", async (req, res) => {
+  try {
+    res.send(await TodoController.updateTodo(req.body))
+  } catch (e) {
+    res.status(500).json(e.message)
+  }
+});
 
 module.exports = Router;
