@@ -1,29 +1,45 @@
 const { Given, When, Then, AfterAll } = require('cucumber');
-const { Builder, By, Capabilities, Key } = require('selenium-webdriver');
 const { expect } = require('chai');
+const axios = require("axios");
 
-require("chromedriver");
-
-const capabilities = Capabilities.chrome();
-capabilities.set('chromeOptions', { "w3c": false });
-const driver = new Builder().withCapabilities(capabilities).build();
-
-Given('I am on the Google search page',{timeout: 2 * 5000}, async function () {
-    await driver.get('http://www.google.com');
+Given(`Eu devo me cadastrar na plataforma utilizando o nome {string} {string} com o email {string} e a senha {string} e com o nome de usuario {string}`, { timeout: 2 * 5000 }, async function (firstName, lastName, email, password, username) {
+    try {
+        let response = (await axios.post("http://localhost:3001/users/new", {
+            firstName, lastName, email, password, username
+        }));
+        this.user = response.data;
+        return true;
+    } catch (err) {
+        throw new Error(err.response.data);
+    }
 });
 
-When('I search for {string}', async function (searchTerm) {
-    const element = await driver.findElement(By.name('q'));
-    element.sendKeys(searchTerm, Key.RETURN);
-    element.submit();
+Then('Eu devo receber uma confirmação dos dados gravados e seu identificador', { timeout: 2 * 5000 }, async function () {
+    let fields = ['firstName', 'lastName', 'email', 'username', '_id', 'todo', 'createdAt'];
+    fields.forEach(field => {
+        if (!(field in this.user)) {
+            throw new Error({ message: "O usuário não foi gravado corretamente" });
+        }
+    })
 });
 
-Then('the page title should start with {string}', {timeout: 60 * 10000}, async function (searchTerm) {
-    const title = await driver.getTitle();
-    const isTitleStartWithCheese = title.toLowerCase().lastIndexOf(`${searchTerm}`, 0) === 0;
-    expect(isTitleStartWithCheese).to.equal(true);
+Then('Eu devo logar no sistema com username {string} e senha {string}', { timeout: 2 * 5000 }, async function (username, password) {
+    try {
+        let response = await axios.post("http://localhost:3001/login", {
+            username, password
+        });
+        this.token = response.data;
+        return true;
+    } catch (err) {
+        throw new Error(err.response.data);
+    }
 });
 
-AfterAll('end', async function(){
-    await driver.quit();
+Then('Eu devo excluir a conta criada', { timeout: 2 * 5000 }, async function () {
+    await axios.delete("http://localhost:3001/users/delete", {
+        data: {
+            user_id: this.user._id
+        }
+    });
+    return true;
 });
