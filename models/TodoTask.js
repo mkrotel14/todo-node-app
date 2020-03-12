@@ -15,6 +15,11 @@ const TodoSchema = new Schema({
         required: true,
         default: 0
     },
+    todoAt: {
+        type: Date,
+        required: false,
+        default: null
+    },
     createdAt: {
         type: Date,
         required: true,
