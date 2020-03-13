@@ -12,7 +12,7 @@ TodoController.createTodo = async ({ content, user_id, todoAt }) => {
     const Todo = new TodoModel({ content, user: user_id, todoAt });
     const User = await UserModel.findById(user_id);
     User.todo.push(Todo);
-    console.log(User);
+
     await User.save();
     return Todo.save();
   } catch (e) {
