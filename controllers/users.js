@@ -18,7 +18,7 @@ UserController.createUser = async ({
     });
     return await User.save();
   } catch (e) {
-    throw e.errors;
+    throw e;
   }
 };
 
@@ -38,7 +38,7 @@ UserController.updateUser = async ({
     User.updatedAt = new Date();
     return await User.save();
   } catch (e) {
-    throw e.errors;
+    throw e;
   }
 };
 
@@ -46,7 +46,7 @@ UserController.deleteUser = async ({ user_id }) => {
   try {
     return await UserModel.deleteOne({ _id: user_id });
   } catch (e) {
-    throw e.errors;
+    throw e;
   }
 };
 
@@ -54,7 +54,7 @@ UserController.getUsers = async () => {
   try {
     return await UserModel.find();
   } catch (e) {
-    throw e.errors;
+    throw e;
   }
 };
 
@@ -62,7 +62,7 @@ UserController.getUserByUserId = async ({ user_id }) => {
   try {
     return await UserModel.findById({ _id: user_id });
   } catch (e) {
-    throw e.errors;
+    throw e;
   }
 };
 

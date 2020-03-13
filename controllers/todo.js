@@ -34,7 +34,7 @@ TodoController.getTodoByUserId = async ({ user_id, finished }) => {
 
     throw new Error("Invalid User Id");
   } catch (e) {
-    throw e.errors;
+    throw e;
   }
 };
 
@@ -62,7 +62,7 @@ TodoController.updateTodo = async ({ todo_id, content, finished, todoAt }) => {
 
     return await todo.save();
   } catch (e) {
-    throw e.errors;
+    throw e;
   }
 };
 
@@ -70,7 +70,7 @@ TodoController.deleteTodo = async ({ todo_id }) => {
   try {
     return await TodoModel.deleteOne({ _id: todo_id });
   } catch (e) {
-    throw e.errors;
+    throw e;
   }
 };
 

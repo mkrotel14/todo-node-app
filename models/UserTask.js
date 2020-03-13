@@ -56,7 +56,7 @@ UserSchema.pre("save", async function save(next) {
       let passValidator = new RegExp(
         /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/
       );
-      if (passValidator.test(password)) {
+      if (passValidator.test(this.assword)) {
         this.password = await this.encryptPassword(this.password);
         next();
       } else {
