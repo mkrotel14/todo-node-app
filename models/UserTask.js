@@ -9,7 +9,7 @@ const UserSchema = new Schema({
   firstName: {
     type: String,
     required: true,
-    minlength: 1
+    minlength: 3
   },
   lastName: {
     type: String,
@@ -56,7 +56,7 @@ UserSchema.pre("save", async function save(next) {
       let passValidator = new RegExp(
         /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/
       );
-      if (passValidator.test(this.assword)) {
+      if (passValidator.test(this.password)) {
         this.password = await this.encryptPassword(this.password);
         next();
       } else {
