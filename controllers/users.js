@@ -34,7 +34,7 @@ UserController.updateUser = async ({
     firstName ? (User.firstName = firstName) : null;
     lastName ? (User.lastName = lastName) : null;
     password ? (User.password = password) : null;
-
+    console.log(User);
     User.updatedAt = new Date();
     return await User.save();
   } catch (e) {

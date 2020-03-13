@@ -14,7 +14,7 @@ TodoController.createTodo = async ({ content, user_id, todoAt }) => {
     User.todo.push(Todo);
     console.log(User);
     await User.save();
-    return Todo;
+    return Todo.save();
   } catch (e) {
     throw e;
   }
@@ -60,7 +60,7 @@ TodoController.updateTodo = async ({ todo_id, content, finished, todoAt }) => {
       throw new Error("The task can only be completed on the deadline");
     }
 
-    return await Todo.save();
+    return await Todo.update();
   } catch (e) {
     throw e;
   }

@@ -83,11 +83,11 @@
     }
   </code>
 </pre>
-<p>This may delete all the Todo's related to the User
+<p>This may delete all the Todos related to the User
 <hr/>
 <h3 id="todos">ToDo Routes</h3>
 <h4>/GET</h4>
-<p>To get all the Todo's for you user you need to use the <code>/todo/?user_id=USER_ID&finished=(true,false)</code>. <b>Returns a TodoSchema</b>, eg:
+<p>To get all the Todos for you user you need to use the <code>/todo/?user_id=USER_ID&finished=(true,false)</code>. <b>Returns a TodoSchema</b>, eg:
 <br/>
 <b>RESPONSE</b>
 <pre>
@@ -97,6 +97,7 @@
       "_id": "5e6497eebb5e856ac0eba796",
       "content": "Avenge my dog's death",
       "user": "5e6497e7bb5e856ac0eba795",
+      "todoAt": "2020-03-15T00:00:00.000Z"
       "createdAt": "2020-03-08T06:59:58.047Z",
       "__v": 0
     }]
@@ -110,6 +111,32 @@
   <code>
     {
       "content": "Avenge my dog",
+      "user_id": "5e6497e7bb5e856ac0eba795"
+    }
+  </code>
+</pre>
+<br/>
+<b>RESPONSE</b>
+<pre>
+  <code>
+    [{
+      "finished": false,
+      "_id": "5e649813ec5c906b53435e31",
+      "content": "Avenge my dog's death",
+      "user": "5e6497e7bb5e856ac0eba795",
+      "createdAt": "2020-03-08T07:00:35.230Z",
+      "__v": 0
+    }]
+  </code>
+</pre>
+<h4>/PUT</h4>
+<p>To update a existing Todo you need to use the <code>/todo/edit</code> route passing a JSON as body of the requisition containing the required field. <b>Returns a array of TodoSchema</b>, eg:
+<br/>
+<b>REQUEST</b>
+<pre>
+  <code>
+    {
+      "content": "My dog was avenged",
       "user_id": "5e6497e7bb5e856ac0eba795"
     }
   </code>
