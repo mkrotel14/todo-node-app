@@ -1,21 +1,20 @@
-const UserModel = require('../models/UserTask')
-LoginController = {}
+const UserModel = require("../models/UserTask");
+const LoginController = {};
 
-LoginController.getLogin = async({username, password}) => {
-    try {
-        const User = await UserModel.findOne({username})
-        if (!User) {
-            throw new Error('Invalid Username')
-        }
-        if (!await User.validatePassword(password)) {
-            throw new Error('Invalid Password')
-        }
-
-        return User
-
-    } catch (e) {
-        throw e
+LoginController.getLogin = async ({ username, password }) => {
+  try {
+    const User = await UserModel.findOne({ username });
+    if (!User) {
+      throw new Error("Invalid Username");
     }
-}
+    if (!(await User.validatePassword(password))) {
+      throw new Error("Invalid Password");
+    }
 
-module.exports = LoginController
+    return User;
+  } catch (e) {
+    throw e;
+  }
+};
+
+module.exports = LoginController;

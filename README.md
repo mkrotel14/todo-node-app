@@ -87,7 +87,7 @@
 <hr/>
 <h3 id="todos">ToDo Routes</h3>
 <h4>/GET</h4>
-<p>To get all the Todo's for you user you need to use the <code>/todo/?user_id=USER_ID</code>. <b>Returns a TodoSchema</b>, eg:
+<p>To get all the Todo's for you user you need to use the <code>/todo/?user_id=USER_ID&finished=(true,false)</code>. <b>Returns a TodoSchema</b>, eg:
 <br/>
 <b>RESPONSE</b>
 <pre>
