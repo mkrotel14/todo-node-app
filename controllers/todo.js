@@ -46,9 +46,9 @@ TodoController.updateTodo = async ({ todo_id, content, finished, todoAt }) => {
 
     const Todo = await TodoModel.findOne({ _id: todo_id });
 
-    content ? (todo.content = content) : null;
-    finished ? (todo.finished = finished) : null;
-    todoAt ? (todo.todoAt = todoAt) : null;
+    content ? (Todo.content = content) : null;
+    finished ? (Todo.finished = finished) : null;
+    todoAt ? (Todo.todoAt = todoAt) : null;
 
     if (Todo.todoAt && Todo.todoAt < new Date()) {
       throw new Error(
@@ -56,11 +56,11 @@ TodoController.updateTodo = async ({ todo_id, content, finished, todoAt }) => {
       );
     }
 
-    if (finished && todo.todoAt > new Date()) {
+    if (finished && Todo.todoAt > new Date()) {
       throw new Error("The task can only be completed on the deadline");
     }
 
-    return await todo.save();
+    return await Todo.save();
   } catch (e) {
     throw e;
   }
