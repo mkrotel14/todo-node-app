@@ -10,12 +10,12 @@ Scenario Outline: Login
 Examples:
    | firstname        | lastname           | email                | password          | username                  | 
    | Igorzao          | Ferreira           | igor@igor.com        | teste123          | igorpraxedes              | TRUE
-   | Igor             | fer                | igor@igor.com        | teste123          | igorpraxedes              | FALSE
-   | Igorzão          | fer                | igor@igor.com        | teste123          | igorpraxedes              | FALSE
+   | Igor             | fer                | igor@igor.com        | teste123          | igorpraxedes              | TRUE
+   | Igorzão          | fer                | igor@igor.com        | teste123          | igorpraxedes              | TRUE
    | Igorzão          | fer                | igorigor.com         | teste123          | igorpraxedes              | FALSE
-   | Igorzão          | fer                | igorigor.com         | teste123          | igorpraxedes              | FALSE
+   | Igorzão          |                   | igor@igor.com         | teste123          | igorpraxedes              | FALSE
    | Igorzão          | ferreira           | igorigor.com         | teste123          | igorpraxedes              | FALSE
-   | Igorzão          | ferreira2          | igor@igor.com        | teste123          | igorpraxedes              | TRUE
+   | Igor             | ferreira2          | igor@igor.com        | teste123          | igorpraxedes              | TRUE
    | Igorzão          | ferreira2          | igor@igor.com        | testeeee          | igorpraxedes              | FALSE
    | Igorzão          | ferreira2          | igor@igor.com        | 123456            | igorpraxedes              | FALSE
-   | Igorzão          | ferreira2          | igor@igor.com        | teste1234         | igorpraxedes              | TRUE
+   | Igorzão          | ferreira2          | igor@igor.com        | teste1234         |                           | FALSE
