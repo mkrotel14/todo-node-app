@@ -104,7 +104,7 @@ Then(`Eu devo excluir a tarefa criada`, { timeout: 2 * 50000 }, async function (
             return true;
         }
     } catch (err) {
-        new Error(err.response.data);
+        throw new Error(err.response.data);
     }
 });
 
