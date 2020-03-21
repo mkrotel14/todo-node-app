@@ -12,7 +12,6 @@ TodoController.createTodo = async ({ content, user_id, todoAt }) => {
     const Todo = new TodoModel({ content, user: user_id, todoAt });
     const User = await UserModel.findById(user_id);
     User.todo.push(Todo);
-
     await User.save();
     return Todo.save();
   } catch (e) {
@@ -40,6 +39,9 @@ TodoController.getTodoByUserId = async ({ user_id, finished }) => {
 
 TodoController.updateTodo = async ({ todo_id, content, finished, todoAt }) => {
   try {
+    if (content == "") {
+      throw new Error("inform the content");
+    }
     if (!isValidObjectId(todo_id)) {
       throw new Error("Invalid Todo Id");
     }
@@ -50,17 +52,18 @@ TodoController.updateTodo = async ({ todo_id, content, finished, todoAt }) => {
     finished ? (Todo.finished = finished) : null;
     todoAt ? (Todo.todoAt = todoAt) : null;
 
-    if (Todo.todoAt && Todo.todoAt < new Date()) {
+    let dataAtualInicio = new Date();
+    dataAtualInicio.setHours(0);
+    dataAtualInicio.setMinutes(0);
+    dataAtualInicio.setSeconds(0);
+
+    if (Todo.todoAt && dataAtualInicio < Todo.todoAt) {
+      console.log(Todo, dataAtualInicio);
       throw new Error(
         "The task due date must be no greater than or equal to the current date"
       );
     }
-
-    if (finished && Todo.todoAt > new Date()) {
-      throw new Error("The task can only be completed on the deadline");
-    }
-
-    return await Todo.update();
+    return await Todo.save();
   } catch (e) {
     throw e;
   }
